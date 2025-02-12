@@ -11,4 +11,7 @@ const connectDatabase =() =>{
     });
 };
 
-module.exports = connectDatabase;
+const getConnection = () => {
+    return mongoose.connection.readyState ===1 ? 'Connected':'Not connected';
+};
+module.exports = {connectDatabase,getConnection};
