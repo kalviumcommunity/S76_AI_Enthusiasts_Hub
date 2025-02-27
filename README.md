@@ -1,7 +1,15 @@
+<<<<<<< HEAD
+### Deployment link : 
+## Cloudflare:
+
+## https://aienthusiantshub.pages.dev/
+
+## Render:
+
 ## https://s76-ai-enthusiasts-hub-1.onrender.com/ping
+
 ### Project Title:  
 **AI Enthusiast's Hub**: "Curated List of Top AI Websites"
-
 
 
 ### Project Overview:
