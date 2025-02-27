@@ -1,0 +1,23 @@
+meta {
+  name: PUT
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3000/api/users/67b569914a3a0ea134a960de
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "_id": "67b569914a3a0ea134a960de",
+      "username": "MANI",
+      "email": "john@example.com",
+      "password": "$2a$10$abcdefg1234567890",
+      "role": "user",
+      "createdAt": "2025-02-19T05:18:09.452Z",
+      "__v": 0
+    }
+}
