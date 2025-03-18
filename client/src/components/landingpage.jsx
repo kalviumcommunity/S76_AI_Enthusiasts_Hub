@@ -18,9 +18,11 @@ function LandingPg() {
           Discover top AI websites, contribute new resources, and engage with the AI community.
         </p>
         <div className="flex justify-center flex-col md:flex-row gap-6 mt-8">
+          <Link to={'user-reviews'}>
           <button className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition shadow-lg">
             Explore AI Websites
           </button>
+          </Link>
           <button className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition shadow-lg">
             Contribute Now
           </button>
@@ -60,22 +62,21 @@ function LandingPg() {
 
         {/* Button to navigate to the User Reviews Page */}
         <div className="text-center mt-6">
-          <Link to="/user-reviews">
             <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-lg font-semibold transition">
               View All Reviews
             </button>
-          </Link>
+          
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* Call to Action
       <section className="mt-16 text-center max-w-3xl px-6">
         <h2 className="text-3xl font-bold text-blue-300">🚀 Join the AI Community Today!</h2>
         <p className="text-gray-300 mt-2">Sign up now and become a part of the AI Enthusiast's Hub.</p>
         <button className="mt-6 bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition shadow-lg">
           Get Started
         </button>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="mt-16 py-6 text-center text-gray-400 text-sm">
