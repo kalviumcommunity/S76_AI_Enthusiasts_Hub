@@ -1,15 +1,20 @@
 const Review = require("../models/reviewsSchema"); // Import Review Schema
 
-// ✅ Create multiple reviews
-exports.createReviews = async (req, res) => {
+// ✅ Create a single review (Fixing issue)
+exports.createReview = async (req, res) => {
   try {
-    const reviews = req.body; // Expecting an array of reviews
-    if (!Array.isArray(reviews) || reviews.length === 0) {
-      return res.status(400).json({ message: "Invalid input: Expecting an array of reviews" });
+    const { aiWebsite, websiteUrl, rating, feedback, createdBy } = req.body;
+
+    // Check if all fields are provided
+    if (!aiWebsite || !websiteUrl || !rating || !feedback || !createdBy) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newReviews = await Review.insertMany(reviews);
-    res.status(201).json({ message: "Reviews created successfully!", reviews: newReviews });
+    // Create new review
+    const newReview = new Review({ aiWebsite, websiteUrl, rating, feedback, createdBy });
+    await newReview.save();
+    
+    res.status(201).json({ message: "Review created successfully!", review: newReview });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
