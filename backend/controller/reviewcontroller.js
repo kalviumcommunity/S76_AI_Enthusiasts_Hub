@@ -1,19 +1,19 @@
 const Review = require("../models/reviewsSchema"); // Import Review Schema
+const { validateReview } = require("../models/validation"); // Import Joi Validation
 
-// ✅ Create a single review (Fixing issue)
+// ✅ Create a single review (with validation)
 exports.createReview = async (req, res) => {
   try {
-    const { aiWebsite, websiteUrl, rating, feedback, createdBy } = req.body;
+    // Validate the request body
+    const { error } = validateReview(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
 
-    // Check if all fields are provided
-    if (!aiWebsite || !websiteUrl || !rating || !feedback || !createdBy) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
+    const { aiWebsite, websiteUrl, rating, feedback, createdBy } = req.body;
 
     // Create new review
     const newReview = new Review({ aiWebsite, websiteUrl, rating, feedback, createdBy });
     await newReview.save();
-    
+
     res.status(201).json({ message: "Review created successfully!", review: newReview });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -41,11 +41,16 @@ exports.getReviewById = async (req, res) => {
   }
 };
 
-// ✅ Update a review
+// ✅ Update a review (with validation)
 exports.updateReview = async (req, res) => {
   try {
+    // Validate updated data
+    const { error } = validateReview(req.body);
+    if (error) return res.status(400).json({ message: error.details[0].message });
+
     const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updatedReview) return res.status(404).json({ message: "Review not found" });
+
     res.status(200).json({ message: "Review updated successfully!", review: updatedReview });
   } catch (error) {
     res.status(500).json({ error: error.message });
