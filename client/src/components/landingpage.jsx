@@ -62,9 +62,9 @@ function LandingPg() {
 
         {/* Button to navigate to the User Reviews Page */}
         <div className="text-center mt-6">
-            <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-lg font-semibold transition">
+            {/* <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-lg font-semibold transition">
               View All Reviews
-            </button>
+            </button> */}
           
         </div>
       </section>
