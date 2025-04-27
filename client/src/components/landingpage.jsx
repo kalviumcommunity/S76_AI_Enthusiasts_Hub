@@ -68,6 +68,23 @@ function LandingPg() {
       .animation-delay-500 {
         animation-delay: 0.5s;
       }
+      
+      /* Adding vendor prefixes for better compatibility */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      
+      .user-select-none {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .width-full {
+        width: -webkit-fill-available;
+        width: stretch;
+        width: 100%;
+      }
     `;
     document.head.appendChild(styleElement);
 
@@ -90,12 +107,13 @@ function LandingPg() {
             <Link to="/user-reviews" className="hover:text-blue-400 transition-colors duration-300">Reviews</Link>
           </div>
           
-          {/* Auth Button */}
+          {/* Auth Button - Added aria-label for accessibility */}
           <div className="flex items-center space-x-2">
             {isLoggedIn ? (
               <button 
                 onClick={toggleLogin}
                 className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-300 hover:scale-105"
+                aria-label="Logout"
               >
                 <LogOut size={18} />
                 <span>Logout</span>
@@ -105,6 +123,7 @@ function LandingPg() {
                 <button 
                   onClick={toggleLogin}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all duration-300 hover:scale-105"
+                  aria-label="Sign In"
                 >
                   <LogIn size={18} />
                   <span>Sign In</span>
@@ -127,7 +146,10 @@ function LandingPg() {
         </div>
         <div className="flex justify-center flex-col md:flex-row gap-6 mt-8 animate-fadeIn animation-delay-300">
           <a href="#features">
-            <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/50 flex items-center gap-2">
+            <button 
+              className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/50 flex items-center gap-2"
+              aria-label="Explore Features"
+            >
               Explore Now
               <ChevronDown size={20} className="animate-bounce" />
             </button>
@@ -142,11 +164,17 @@ function LandingPg() {
         </p>
         <div className="flex justify-center flex-col md:flex-row gap-6 mt-8">
           <Link to="user-reviews">
-            <button className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/50">
+            <button 
+              className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/50"
+              aria-label="Explore AI Websites"
+            >
               Explore AI Websites
             </button>
           </Link>
-          <button className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/50">
+          <button 
+            className="bg-blue-500 hover:bg-purple-600 px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/50"
+            aria-label="Contribute Resources"
+          >
             Contribute Now
           </button>
         </div>
@@ -166,8 +194,11 @@ function LandingPg() {
               className={`bg-gray-800 p-6 rounded-lg shadow-lg text-center transition-all duration-300 hover:bg-gray-700 hover:shadow-xl transform hover:-translate-y-2 cursor-pointer ${activeFeature === index ? 'ring-2 ring-blue-400' : ''}`}
               onMouseEnter={() => setActiveFeature(index)}
               onMouseLeave={() => setActiveFeature(null)}
+              role="button"
+              tabIndex={0}
+              aria-label={`Feature: ${feature.title}`}
             >
-              <div className="text-4xl mb-3">{feature.icon}</div>
+              <div className="text-4xl mb-3" aria-hidden="true">{feature.icon}</div>
               <h3 className="text-xl font-semibold">{feature.title}</h3>
               <p className="text-gray-300 mt-2">{feature.description}</p>
             </div>
@@ -187,7 +218,7 @@ function LandingPg() {
               key={index} 
               className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-4 hover:bg-gray-700"
             >
-              <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-xl font-bold">
+              <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-xl font-bold" aria-hidden="true">
                 {review.avatar}
               </div>
               <div>
@@ -205,16 +236,25 @@ function LandingPg() {
           <h2 className="text-3xl font-bold text-blue-300">Stay Updated</h2>
           <p className="text-gray-300 mt-2">Subscribe to our newsletter for the latest AI news and tools</p>
         </div>
-        <div className="mt-6 flex flex-col md:flex-row gap-3">
+        <form className="mt-6 flex flex-col md:flex-row gap-3">
           <input 
             type="email" 
             placeholder="Enter your email" 
             className="flex-grow px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-blue-500"
+            id="email-subscription"
+            name="email" 
+            autoComplete="email"
+            aria-label="Email address for newsletter"
+            required
           />
-          <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105">
+          <button 
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+            aria-label="Subscribe to newsletter"
+          >
             Subscribe
           </button>
-        </div>
+        </form>
       </section>
 
       {/* Footer with improved links */}
@@ -223,16 +263,17 @@ function LandingPg() {
           <p className="text-lg">© 2025 AI Enthusiast's Hub | Made with ❤️ by AI Enthusiasts</p>
           <div className="flex justify-center gap-6 mt-4">
             {[
-              { name: "Twitter", icon: "𝕏" },
-              { name: "LinkedIn", icon: "in" }, 
-              { name: "GitHub", icon: "⌨" }
+              { name: "Twitter", icon: "𝕏", url: "#twitter" },
+              { name: "LinkedIn", icon: "in", url: "#linkedin" }, 
+              { name: "GitHub", icon: "⌨", url: "#github" }
             ].map((platform, index) => (
               <a 
                 key={index} 
-                href="#" 
+                href={platform.url}
                 className="hover:text-blue-400 transition-colors duration-300 flex items-center gap-1"
+                aria-label={`Visit our ${platform.name} page`}
               >
-                <span className="font-bold">{platform.icon}</span> {platform.name}
+                <span className="font-bold" aria-hidden="true">{platform.icon}</span> {platform.name}
               </a>
             ))}
           </div>
