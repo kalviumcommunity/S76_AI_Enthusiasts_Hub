@@ -1,6 +1,8 @@
+// client/src/pages/UserReviewsPage.jsx
 import React, { useEffect, useState } from "react";
 import UserReview from "../components/UserReview";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function UserReviewsPage() {
   const navigate = useNavigate();
@@ -15,16 +17,15 @@ function UserReviewsPage() {
   };
 
   useEffect(() => {
-    // Fetch reviews
-    fetch("http://localhost:4000/api/reviews")
-      .then((res) => res.json())
-      .then((data) => {
-        setReviews(data);
-        setFilteredReviews(data);
+    // Fetch reviews - Fixed the port number to 3000
+    axios.get("http://localhost:3000/api/reviews")
+      .then((res) => {
+        setReviews(res.data);
+        setFilteredReviews(res.data);
         setIsLoading(false);
         
         // Extract unique creators for dropdown
-        const uniqueCreators = [...new Set(data.map(review => review.createdBy).filter(Boolean))];
+        const uniqueCreators = [...new Set(res.data.map(review => review.createdBy).filter(Boolean))];
         setCreators(uniqueCreators);
       })
       .catch((err) => {
@@ -52,7 +53,7 @@ function UserReviewsPage() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-blue-400">User Reviews</h1>
+      <h1 className="text-4xl font-bold text-blue-400 mt-6">User Reviews</h1>
       
       <div className="mt-6 w-full max-w-4xl flex items-center justify-between">
         <button 

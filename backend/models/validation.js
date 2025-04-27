@@ -1,10 +1,18 @@
 const Joi = require("joi");
 
-// ✅ User (Post) Validation Schema
+// ✅ User Validation Schema (updated to match User model)
 const userValidationSchema = Joi.object({
-  name: Joi.string().min(3).max(50).required(),
+  username: Joi.string().min(3).max(50).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string()
+    .min(8)
+    .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{6,}$'))
+    .required()
+    .messages({
+      'string.min': 'Password must be at least 6 characters long',
+      'string.pattern.base': 'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      'string.empty': 'Password is required'
+    }),
 });
 
 // ✅ Review Validation Schema
