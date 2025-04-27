@@ -1,20 +1,28 @@
+// backend/routes/routes.js
 const express = require('express');
 const router = express.Router();
-const userController = require('../controller/postcontroller'); 
-const reviewsController = require('../controller/reviewcontroller')
+const userController = require('../controller/postcontroller');
+const reviewsController = require('../controller/reviewcontroller');
+const authController = require('../controller/authController');
+const { protect, admin } = require('../middleware/auth');
 
-// 🛠 User Routes
-router.post('/users', userController.createUsers);       // Create a user
-router.get('/users', userController.getAllUsers);       // Get all users
-router.get('/users/:id', userController.getUserById);   // Get a user by ID
-router.put('/users/:id', userController.updateUser);    // Update a user
-router.delete('/users/:id', userController.deleteUser); // Delete a user
+// Auth Routes
+router.post('/auth/register', authController.register);
+router.post('/auth/login', authController.login);
+router.get('/auth/me', protect, authController.getCurrentUser);
 
-// ⭐ Review Routes
-router.post("/reviews", reviewsController.createReview);  // Create multiple reviews
-router.get("/reviews", reviewsController.getAllReviews);  // Get all reviews
-router.get("/reviews/:id", reviewsController.getReviewById);  // Get a single review
-router.put("/reviews/:id", reviewsController.updateReview);  // Update a review
-router.delete("/reviews/:id", reviewsController.deleteReview);  // Delete a review
+// 🛠 User Routes - Protected with admin role
+router.post('/users', protect, admin, userController.createUsers);
+router.get('/users', protect, admin, userController.getAllUsers);
+router.get('/users/:id', protect, userController.getUserById);
+router.put('/users/:id', protect, userController.updateUser);
+router.delete('/users/:id', protect, admin, userController.deleteUser);
+
+// ⭐ Review Routes - Some protected
+router.post("/reviews", protect, reviewsController.createReview);
+router.get("/reviews", reviewsController.getAllReviews);
+router.get("/reviews/:id", reviewsController.getReviewById);
+router.put("/reviews/:id", protect, reviewsController.updateReview);
+router.delete("/reviews/:id", protect, reviewsController.deleteReview);
 
 module.exports = router;
