@@ -28,6 +28,54 @@ function LandingPg() {
     setIsLoggedIn(!isLoggedIn);
   };
 
+  // Add CSS animations via style tag in the head on component mount
+  useEffect(() => {
+    const styleElement = document.createElement("style");
+    styleElement.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      
+      @keyframes gradientText {
+        0% { color: #60a5fa; }
+        50% { color: #a78bfa; }
+        100% { color: #60a5fa; }
+      }
+      
+      .animate-fadeIn {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+      }
+      
+      .animate-slideUp {
+        animation: slideUp 0.8s forwards;
+      }
+      
+      .animate-gradientText {
+        animation: gradientText 3s infinite;
+      }
+      
+      .animation-delay-300 {
+        animation-delay: 0.3s;
+      }
+      
+      .animation-delay-500 {
+        animation-delay: 0.5s;
+      }
+    `;
+    document.head.appendChild(styleElement);
+
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center">
       {/* Fixed Navbar */}
@@ -217,46 +265,6 @@ function LandingPg() {
           </div>
         </div>
       </footer>
-
-      {/* Custom CSS for animations */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-          from { transform: translateY(20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-        
-        @keyframes gradientText {
-          0% { color: #60a5fa; }
-          50% { color: #a78bfa; }
-          100% { color: #60a5fa; }
-        }
-        
-        .animate-fadeIn {
-          opacity: 0;
-          animation: fadeIn 1s forwards;
-        }
-        
-        .animate-slideUp {
-          animation: slideUp 0.8s forwards;
-        }
-        
-        .animate-gradientText {
-          animation: gradientText 3s infinite;
-        }
-        
-        .animation-delay-300 {
-          animation-delay: 0.3s;
-        }
-        
-        .animation-delay-500 {
-          animation-delay: 0.5s;
-        }
-      `}</style>
     </div>
   );
 }

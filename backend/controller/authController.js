@@ -77,7 +77,7 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
-    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+    // console.log('JWT_SECRET:', process.env.JWT_SECRET);
     console.log('User payload:', user);
     
      res.cookie('token', token, {
