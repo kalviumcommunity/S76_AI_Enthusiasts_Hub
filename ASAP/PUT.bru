@@ -1,0 +1,25 @@
+meta {
+  name: PUT
+  type: http
+  seq: 3
+}
+
+put {
+  url: PUT http://localhost:3000/api/reviews/67d127ef50bea0bb2552e3f6
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGRlNDc0NjA3NjYyZWJlYjQ0MjNhNyIsInVzZXJuYW1lIjoiTWFuaSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ1ODE3MjA4LCJleHAiOjE3NDU5MDM2MDh9.7pYdk8L9WdiYiKXq5QLyLFmcIoP0OscbMd8tp2JON0U
+}
+
+body:json {
+  {
+    "aiWebsite": "Leonardo AI",
+    "websiteUrl": "https://leonardo.ai",
+    "rating": 4,
+    "feedback": "One of the most flexible AI image generators.",
+    "createdBy": "AI_Guru"
+  }
+}

@@ -2,10 +2,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/postschema'); // Adjust the path as necessary
 const bcrypt = require('bcryptjs');
-
+require('dotenv').config();
 exports.protect = async (req, res, next) => {
   try {
-    let token;
+    let token=req.cookies.token;
 
     // Check if token exists in headers
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -16,11 +16,12 @@ exports.protect = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Not authorized, no token' });
     }
-
     try {
+      console.log(process.env.JWT_SECRET)
       // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+      console.log(token)
+      const decoded = jwt.verify(token, "ai_hub_secure_jwt_secret_key_2025");
+      
       // Attach user to request
       req.user = decoded;
       next();

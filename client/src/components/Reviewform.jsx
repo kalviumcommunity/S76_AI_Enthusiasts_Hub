@@ -16,7 +16,7 @@ function ReviewForm() {
     // Fetch all reviews
     const fetchReviews = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/reviews");
+            const response = await axios.get("http://localhost:3000/api/reviews")
             setReviews(response.data);
         } catch (error) {
             console.error("Error fetching reviews", error);
@@ -35,11 +35,16 @@ function ReviewForm() {
         try {
             if (editingId) {
                 // Update existing review
-                await axios.put(`http://localhost:3000/api/reviews/${editingId}`, reviewData);
+                await axios.put(`http://localhost:3000/api/reviews/${editingId}`, reviewData,{
+                    withCredentials: true,
+            });
                 alert("Review updated successfully");
             } else {
                 // Add new review
-                await axios.post("http://localhost:3000/api/reviews", reviewData);
+                await axios.post(`http://localhost:3000/api/reviews`, reviewData, {
+                    withCredentials: true,
+                });
+                
                 alert("Review added successfully");
             }
             
