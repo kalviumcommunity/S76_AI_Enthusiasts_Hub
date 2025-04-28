@@ -41,7 +41,7 @@ function ReviewForm() {
                 alert("Review updated successfully");
             } else {
                 // Add new review
-                await axios.put(`http://localhost:3000/api/reviews/${editingId}`, reviewData, {
+                await axios.post(`http://localhost:3000/api/reviews`, reviewData, {
                     withCredentials: true,
                 });
                 
