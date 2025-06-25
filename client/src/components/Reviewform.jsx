@@ -16,7 +16,7 @@ function ReviewForm() {
     // Fetch all reviews
     const fetchReviews = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/reviews")
+            const response = await axios.get("https://ai-enthusiasts-hub.onrender.com/api/reviews")
             setReviews(response.data);
         } catch (error) {
             console.error("Error fetching reviews", error);
@@ -35,13 +35,13 @@ function ReviewForm() {
         try {
             if (editingId) {
                 // Update existing review
-                await axios.put(`http://localhost:3000/api/reviews/${editingId}`, reviewData,{
+                await axios.put(`https://ai-enthusiasts-hub.onrender.com/api/reviews/${editingId}`, reviewData,{
                     withCredentials: true,
             });
                 alert("Review updated successfully");
             } else {
                 // Add new review
-                await axios.post(`http://localhost:3000/api/reviews`, reviewData, {
+                await axios.post(`https://ai-enthusiasts-hub.onrender.com/api/reviews`, reviewData, {
                     withCredentials: true,
                 });
                 
@@ -94,7 +94,7 @@ function ReviewForm() {
         }
         
         try {
-            await axios.delete(`http://localhost:3000/api/reviews/${id}`);
+            await axios.delete(`https://ai-enthusiasts-hub.onrender.com/api/reviews/${id}`,{withCredentials:true,});
             alert("Review deleted successfully");
             fetchReviews();
         } catch (error) {

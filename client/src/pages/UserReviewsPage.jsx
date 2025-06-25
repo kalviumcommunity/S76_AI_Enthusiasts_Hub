@@ -18,7 +18,7 @@ function UserReviewsPage() {
 
   useEffect(() => {
     // Fetch reviews - Fixed the port number to 3000
-    axios.get("http://localhost:3000/api/reviews")
+    axios.get("https://ai-enthusiasts-hub.onrender.com/api/reviews")
       .then((res) => {
         setReviews(res.data);
         setFilteredReviews(res.data);
